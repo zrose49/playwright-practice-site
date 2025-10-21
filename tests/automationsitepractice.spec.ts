@@ -1,15 +1,25 @@
 import {test, expect} from '@playwright/test'
 
-test ('Test Case 1: Register User', async ({page}) => {
+const userInfo = {
+    username: "Zunit",
+    password: "pass123",
+    email: "test@test.com"
+} as const;
 
+const locators = {
+
+} as const
+
+test ('Test Case 1: Register User', async ({page}) => {
+    
     //Land on Homepage and verify expected sections and images exist
     await page.goto('https://www.automationexercise.com/');
     await expect(page.locator('div').filter({ hasText: 'Home  Products Cart Signup' }).first()).toBeVisible();
-    await expect(page.locator('#recommended-item-carousel').getByRole('img', { name: 'ecommerce website products' }).nth(2)).toBeVisible();
+    await expect(page.getByRole('img', { name: 'ecommerce website products' }).nth(2)).toBeVisible();
     await expect(page.locator('#footer')).toBeVisible();
 
     //Click on Sign up/login button
-    await page.locator("//*[@id='header']/div/div/div/div[2]/div/ul/li[4]/a").click();
+    await page.getByText(" Signup / Login").click();
     //Verify Sign up page was landed on
     await expect(page).toHaveURL("https://www.automationexercise.com/login");
     await expect(page).toHaveTitle("Automation Exercise - Signup / Login");
@@ -29,5 +39,9 @@ test ('Test Case 1: Register User', async ({page}) => {
 
     //Fill Sign up forms
     const signupNameBox = page.getByTestId("signup-name");
-    signupNameBox.pressSequentially("Zunit");
+    signupNameBox.pressSequentially(userInfo.username);
+    await expect(signupNameBox).toHaveValue(userInfo.username);
+
+    const signupEmailBox = page.getByTestId("signup-email");
+    signupEmailBox.pressSequentially("test@test.com");
 });
