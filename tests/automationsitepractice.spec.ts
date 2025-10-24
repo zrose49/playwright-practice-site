@@ -127,12 +127,20 @@ test ('Test Case 1: Register User', async ({page}) => {
     await expect(addressField2).toHaveValue(userInfo.address2);
 
     const countryDropDown = page.getByTestId("country");
-    const countryDropDownValues = await page.$$('#country > option');
+    
+    const countryDropDownValues = await page.locator('#country > option').all();
+    const countryArray = [];
+    for(const value of countryDropDownValues) {
+       let countryText = await value.innerText();
+       countryArray.push(countryText);
+    }
+
+    /* const countryDropDownValues = await page.$$('#country > option');
     const countryArray = [];
     for (const option of countryDropDownValues) {
         let text = await option.textContent();
         countryArray.push(text);
-    }
+    } */
     expect(countryArray).toEqual(countryDropDownOptions);
 
     await countryDropDown.selectOption("United States");
