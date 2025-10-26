@@ -20,7 +20,11 @@ const userInfo = {
     lastName: "Appleseed Jr.",
     company: "StoneRock Industries",
     address1: "1234 Rock Emerald Road",
-    address2: "5678 Platinum Drive"
+    address2: "5678 Platinum Drive",
+    state: "NY",
+    city: "New York",
+    zipcode: "10079",
+    mobileNumber: "973-9090-1234"
 } as const;
 
 const countryDropDownOptions = ["India","United States","Canada","Australia","Israel","New Zealand","Singapore"];
@@ -135,16 +139,49 @@ test ('Test Case 1: Register User', async ({page}) => {
        countryArray.push(countryText);
     }
 
+    //Alternate way to get dropdown values
     /* const countryDropDownValues = await page.$$('#country > option');
     const countryArray = [];
     for (const option of countryDropDownValues) {
         let text = await option.textContent();
         countryArray.push(text);
     } */
+    
     expect(countryArray).toEqual(countryDropDownOptions);
+
+    await countryDropDown.selectOption("Australia");
+    await expect(countryDropDown).toHaveValue("Australia");
 
     await countryDropDown.selectOption("United States");
     await expect(countryDropDown).toHaveValue("United States");
+
+    const stateTextField = page.getByTestId("state");
+    await stateTextField.fill(userInfo.state);
+    await expect(stateTextField).toHaveValue(userInfo.state);
+
+    const cityTextField = page.getByTestId("city");
+    await cityTextField.fill(userInfo.city);
+    await expect(cityTextField).toHaveValue(userInfo.city);
+
+    const zipcodeTextField = page.getByTestId("zipcode");
+    await zipcodeTextField.fill(userInfo.zipcode);
+    await expect(zipcodeTextField).toHaveValue(userInfo.zipcode);
+
+    const mobileNumberTextField = page.getByTestId("mobile_number");
+    await mobileNumberTextField.fill(userInfo.mobileNumber);
+    await expect(mobileNumberTextField).toHaveValue(userInfo.mobileNumber);
+
+    const createAccountButton = page.getByTestId("create-account");
+    await createAccountButton.click();
+    await expect(page).toHaveURL("https://www.automationexercise.com/account_created");
+    await expect(page.getByTestId("account-created")).toHaveText("Account Created!");
+    await expect(page.locator("#form > div > div > div > p:nth-child(2)")).toHaveText("Congratulations! Your new account has been successfully created!");
+    await expect(page.locator("#form > div > div > div > p:nth-child(3)")).toHaveText("You can now take advantage of member privileges to enhance your online shopping experience with us.");
+    
+    const continueButton = page.getByTestId("continue-button");
+    await continueButton.click();
+    await expect(page).toHaveURL("https://www.automationexercise.com/");
+    
 
 
 });
