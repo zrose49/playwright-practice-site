@@ -29,6 +29,8 @@ const userInfo = {
 
 const countryDropDownOptions = ["India","United States","Canada","Australia","Israel","New Zealand","Singapore"];
 
+const menuOptionsText = ["Home"," Products","Cart","Logout","Delete Account","Test Cases","API Testing","Video Tutorials","Contact us",`Logged in as ${userInfo.username}`]
+
 const locators = {
 
 } as const
@@ -181,7 +183,19 @@ test ('Test Case 1: Register User', async ({page}) => {
     const continueButton = page.getByTestId("continue-button");
     await continueButton.click();
     await expect(page).toHaveURL("https://www.automationexercise.com/");
+
+    const topNavButtons = await page.locator(`#header > div > div > div > div.col-sm-8 > div > ul`).locator("li").all();
+    let menuTextArray: string[] = [];
+    for(const button of topNavButtons) {
+        let text = (await button.innerText()).trim();
+        menuTextArray.push(text);
+    }
+   
+    expect(menuTextArray).toEqual(menuOptionsText);
     
+    const loggedInText = page.locator('#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10) > a');
+    await expect(loggedInText).toContainText(`Logged in as ${userInfo.username}`);
+
 
 
 });
