@@ -1,4 +1,4 @@
-import {test, expect} from '@playwright/test'
+import {test, expect} from '@playwright/test';
 
 function generateRandomString(length: number) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -196,6 +196,21 @@ test ('Test Case 1: Register User', async ({page}) => {
     const loggedInText = page.locator('#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10) > a');
     await expect(loggedInText).toContainText(`Logged in as ${userInfo.username}`);
 
+    const deleteAccountButton = page.locator('#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(5) > a');
+    await expect(deleteAccountButton).toHaveText('Delete Account');
+    await deleteAccountButton.click();
+    expect(page).toHaveURL("https://www.automationexercise.com/delete_account");
 
+    const accountDeletedTitle = page.getByTestId("account-deleted");
+    await expect(accountDeletedTitle).toHaveText("Account Deleted!");
+
+    const deleteParagraphText = page.locator('#form > div > div > div > p:nth-child(2)');
+    await expect(deleteParagraphText).toHaveText("Your account has been permanently deleted!");
+
+    await continueButton.click();
+    expect(page).toHaveURL("https://www.automationexercise.com/");
+
+    //page.screenshot({path:"screenshots/homepage.png"});
+    await expect(page).toHaveScreenshot("homepage.png",{threshold:.1});
 
 });
