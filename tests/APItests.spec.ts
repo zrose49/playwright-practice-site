@@ -39,6 +39,7 @@ expect(data.products[0].category.category).toBe("Tops");
 test('Check number of products returned is correct',{tag:'@api'}, async({request}) =>{
 const response = await request.get("https://automationexercise.com/api/productsList");
 await expect(response).toBeOK();
+console.log(response.headersArray());
 
 const data:productListResponse = await response.json();
 expect(data.responseCode).toBe(200);
@@ -53,6 +54,10 @@ expect(obj.price).toBeTruthy();
 productCount++;
 }
 expect(productCount).toBeGreaterThanOrEqual(actualProductCount);
+});
+
+test('Check last product in product list API', async ({request}) => {
+
 });
 
 });
