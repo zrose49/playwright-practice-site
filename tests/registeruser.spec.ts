@@ -35,7 +35,7 @@ const locators = {
 
 } as const
 
-test ('Test Case 1: Register User', async ({page}) => {
+test ('Test Case 1: Register User',{tag:"@test1"}, async ({page}) => {
     
     //Land on Homepage and verify expected sections and images exist
     await page.goto('https://www.automationexercise.com/');
