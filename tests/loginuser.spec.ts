@@ -7,6 +7,7 @@ import { homePageSelectors } from "../Selectors/Home-page";
 import { pageurls } from "../testdata/urls";
 import { pageTitles } from "../testdata/pagetitles";
 import { loginPageErrorMessages } from "../testdata/error-messages";
+import { homepageScreenshots } from "../testdata/sceenshot-filenames";
 
 test('Login with user with correct email and password',{tag:"@test2"}, async({page}) => {
 //First Register a user and get the username and password
@@ -56,5 +57,15 @@ test('Login with non-existent email and password', {tag:"@test3"}, async ({page}
     await page.getByTestId(loginPageSelectors.loginButton).click();
     await expect(page.locator(loginPageSelectors.emailPasswordErrorMessage)).toBeVisible();
     await expect(page.locator(loginPageSelectors.emailPasswordErrorMessage)).toHaveText(loginPageErrorMessages.incorrectEmailorPasswordMessage);
+
+});
+
+test.only('Verify user logout flow', async({page}) => {
+    //First register user to use
+    await registerUser(page);
+
+    const userName = userInfo.username;
+    expect(page).toHaveTitle(pageTitles.homePageTitle);
+    expect(page).toHaveScreenshot(homepageScreenshots.homepage,{maxDiffPixelRatio:.2});
 
 });

@@ -67,9 +67,17 @@ test('Verify number of specific brands in the getBrandsList is correct', async()
 
 });
 
-test.only('Verify each known brand exists in the getAllBrands response', async() => {
+test('Verify each known brand exists in the getAllBrands response', async() => {
     let uniqueBrands = getUniqueBrands(brands);
     expect(uniqueBrands).toEqual(getAllbrandsListAPIData.brandArray);
+});
+
+test('Verify PUT Request Method does not work on getBrandsAPI', async({request}) => {
+    let response = await request.put(apiEndpoints.getAllbrandsList);
+    expect(response.status()).toBe(200);
+
+    let data = await response.json();
+    expect(data.responseCode).toBe(405);
 });
 
 

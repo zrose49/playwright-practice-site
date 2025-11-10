@@ -36,6 +36,8 @@ export default defineConfig({
     testIdAttribute: 'data-qa',
   },
 
+  snapshotPathTemplate: `./testdata/screenshots/{testFilePath}/{arg}{ext}`,
+
   /* Configure projects for major browsers */
   projects: [
     {

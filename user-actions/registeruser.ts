@@ -5,7 +5,7 @@ import { pageurls } from "../testdata/urls";
 import { accountCreatedSelectors } from "../Selectors/AccountCreated-page";
 
 const password = userInfo.password;
-const name = userInfo.firstName + userInfo.lastName;
+const name = userInfo.username;
 const email = userInfo.email;
 const firstName = userInfo.firstName;
 const lastName = userInfo.lastName;
