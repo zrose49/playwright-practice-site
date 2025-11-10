@@ -1,7 +1,7 @@
 import {test,expect, APIResponse} from "@playwright/test";
 import { apiEndpoints } from "../../testdata/urls";
-import { getAllbrandsListAPIData, getAllProductsListAPIData } from "../../testdata/apidata";
-import { brandExists, countBrands } from "../../helpers/apihelpers";
+import { getAllbrandsListAPIData } from "../../testdata/apidata";
+import { countBrands, getUniqueBrands } from "../../helpers/apihelpers";
 
 type brandsListResponse = {
     responseCode: number,
@@ -9,29 +9,34 @@ type brandsListResponse = {
     message?: string
 }
 
+type brands = brandsListResponse["brands"];
+
 test.describe('getBrandsList APIs', {tag:"@getbrandsapitests"}, () => {
     let response: APIResponse;
     let data: brandsListResponse;
+    let brands: brands;
 
     test.beforeEach(async ({request}) => {
         response = await request.get(apiEndpoints.getAllbrandsList);
         expect(response.status()).toBe(200);
         data = await response.json();
+        brands = data.brands;
     });
 
 test('Verify getBrandsList returns the correct amount of brands', async() => {
-    
-    let brands = data.brands;
     let count = 0;
     for(let _brand of brands) {
         count++;
     }
     console.log(`Brand Count: ${count}`);
     expect(count).toBeGreaterThanOrEqual(getAllbrandsListAPIData.numberOfBrands);
+
+    let uniqueBrands = getUniqueBrands(brands);
+    console.log(uniqueBrands);
+    expect(uniqueBrands.length).toBe(getAllbrandsListAPIData.numberofUniqueBrands);
 });
 
 test('Verify first and last product in getBrandsList API', async() => {
-    
     
     // Verify first brand
     const firstBrand = data.brands[0].brand;
@@ -47,7 +52,6 @@ test('Verify first and last product in getBrandsList API', async() => {
 });
 
 test('Verify number of specific brands in the getBrandsList is correct', async() => {
-    let brands = data.brands;
     
     //Verify amount of Biba brands
     const bibaBrandCount = countBrands(getAllbrandsListAPIData.bibaBrandName,brands);
@@ -63,10 +67,9 @@ test('Verify number of specific brands in the getBrandsList is correct', async()
 
 });
 
-test('Verify each known brand exists in the getAllBrands response', async() => {
-    let brands: brandsListResponse["brands"] = data.brands;
-    let poloBrandExists = brandExists(getAllbrandsListAPIData.poloBrandName,brands);
-    expect(poloBrandExists).toBe(true);
+test.only('Verify each known brand exists in the getAllBrands response', async() => {
+    let uniqueBrands = getUniqueBrands(brands);
+    expect(uniqueBrands).toEqual(getAllbrandsListAPIData.brandArray);
 });
 
 

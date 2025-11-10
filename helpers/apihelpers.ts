@@ -21,3 +21,9 @@ export function countBrands(brandName:string, brands:brandsArray): number {
     }
     return count;
 }
+
+export function getUniqueBrands(brands:brandsArray) {
+    const allBrands = brands.map(brand => brand.brand);
+    const uniqueBrands = new Set(allBrands);
+    return [...uniqueBrands];
+}

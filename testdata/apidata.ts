@@ -5,6 +5,7 @@ export const getAllProductsListAPIData = {
 
 export const getAllbrandsListAPIData = {
     numberOfBrands: 34,
+    numberofUniqueBrands: 8,
     firstBrandID: 1,
     firstBrandName: "Polo",
     lastBrandID: 43,
@@ -14,5 +15,6 @@ export const getAllbrandsListAPIData = {
     hmBrandName: "H&M",
     hmBrandCount: 5,
     poloBrandName: "Polo",
-    poloBrandCount: 6
+    poloBrandCount: 6,
+    brandArray: ["Polo","H&M","Madame","Mast & Harbour","Babyhug","Allen Solly Junior","Kookie Kids","Biba"]
 }
