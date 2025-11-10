@@ -60,7 +60,7 @@ test('Login with non-existent email and password', {tag:"@test3"}, async ({page}
 
 });
 
-test.only('Verify user logout flow', async({page}) => {
+test('Verify user logout flow', {tag:"@test4"}, async({page}) => {
     //First register user to use
     await registerUser(page);
 
