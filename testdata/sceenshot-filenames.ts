@@ -1,3 +1,4 @@
 export const homepageScreenshots = {
-    homepage: "homepage.png"
+    homepage: "homepage.png",
+    loggedInIcon: "loggedInIcon.png"
 }

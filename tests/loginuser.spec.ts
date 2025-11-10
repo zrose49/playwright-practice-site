@@ -8,6 +8,7 @@ import { pageurls } from "../testdata/urls";
 import { pageTitles } from "../testdata/pagetitles";
 import { loginPageErrorMessages } from "../testdata/error-messages";
 import { homepageScreenshots } from "../testdata/sceenshot-filenames";
+import { headerText } from "../testdata/page-text";
 
 test('Login with user with correct email and password',{tag:["@test2","@smoke"]}, async({page}) => {
 //First Register a user and get the username and password
@@ -61,11 +62,23 @@ test('Login with non-existent email and password', {tag:"@test3"}, async ({page}
 });
 
 test('Verify user logout flow', {tag:"@test4"}, async({page}) => {
-    //First register user to use
+    //First register a user to use
     await registerUser(page);
 
     const userName = userInfo.username;
     expect(page).toHaveTitle(pageTitles.homePageTitle);
     expect(page).toHaveScreenshot(homepageScreenshots.homepage,{maxDiffPixelRatio:.2});
+    expect(await page.locator(homePageSelectors.loggedInAsText).innerText()).toContain(headerText.loggedInAsText);
+    
+    //Verify Logged in Icon is correct
+    //page.locator("//i[@class='fa fa-user']").screenshot({path:'./testdata/screenshots/loggedInIcon.png'});
+    await expect(page.locator(homePageSelectors.loggedInIcon)).toHaveScreenshot(homepageScreenshots.loggedInIcon,{maxDiffPixelRatio:.2});
 
+    //Verify Logged Out icon and text
+    expect((await page.locator("//li[contains(.,'Logout')]").innerText()).trim()).toBe("Logout");
+    //await page.locator("//i[@class='fa fa-lock']").screenshot({path:'./testdata/screenshots/loginuser.spec.ts/logoutIcon.png'});
+    await expect(page.locator("//i[@class='fa fa-lock']")).toHaveScreenshot("logoutIcon.png",{maxDiffPixelRatio:.3});
+
+    await page.locator("//a[normalize-space(text())='Logout']").click();
+    await expect(page).toHaveTitle(pageTitles.loginPageTitle);
 });
