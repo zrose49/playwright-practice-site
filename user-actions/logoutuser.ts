@@ -1,6 +1,6 @@
 import { Page } from "playwright";
-import { homePageLocators } from "../Selectors/Home-page";
+import { homePageSelectors } from "../Selectors/Home-page";
 
 export async function logoutUser(page:Page) {
-    await page.locator(homePageLocators.logoutButton).click();
+    await page.locator(homePageSelectors.logoutButton).click();
 }

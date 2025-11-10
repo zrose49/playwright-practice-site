@@ -11,7 +11,7 @@ type brandsListResponse = {
 
 type brands = brandsListResponse["brands"];
 
-test.describe('getBrandsList APIs', {tag:"@getbrandsapitests"}, () => {
+test.describe('getBrandsList APIs', {tag:["@getbrandsapitests","@smoke"]}, () => {
     let response: APIResponse;
     let data: brandsListResponse;
     let brands: brands;

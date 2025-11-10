@@ -18,7 +18,7 @@ type productListResponse = {
     message?: string
 }
 
-test.describe('GetAllProductsList API tests',{tag:'@productlistapi'}, () =>{
+test.describe('GetAllProductsList API tests',{tag:['@productlistapi','@smoke']}, () =>{
 
 test('Verify 1st product in response has correct data',{tag: '@api'}, async ({request}) => {
 let response = await request.get(apiEndpoints.productlist);

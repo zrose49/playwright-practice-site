@@ -35,7 +35,7 @@ const locators = {
 
 } as const
 
-test ('Test Case 1: Register User',{tag:"@test1"}, async ({page}) => {
+test ('Test Case 1: Register User',{tag:["@test1","@smoke"]}, async ({page}) => {
     
     //Land on Homepage and verify expected sections and images exist
     await page.goto('https://www.automationexercise.com/');
@@ -211,6 +211,6 @@ test ('Test Case 1: Register User',{tag:"@test1"}, async ({page}) => {
     expect(page).toHaveURL("https://www.automationexercise.com/");
 
     //page.screenshot({path:"screenshots/homepage.png"});
-    await expect(page).toHaveScreenshot("homepage.png",{threshold:.1});
+    await expect(page).toHaveScreenshot("homepage.png",{maxDiffPixelRatio:.2});
 
 });

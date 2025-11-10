@@ -9,7 +9,7 @@ import { pageTitles } from "../testdata/pagetitles";
 import { loginPageErrorMessages } from "../testdata/error-messages";
 import { homepageScreenshots } from "../testdata/sceenshot-filenames";
 
-test('Login with user with correct email and password',{tag:"@test2"}, async({page}) => {
+test('Login with user with correct email and password',{tag:["@test2","@smoke"]}, async({page}) => {
 //First Register a user and get the username and password
 await registerUser(page);
 const email = userInfo.email;
