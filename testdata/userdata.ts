@@ -17,4 +17,9 @@ export const userInfo = {
     mobileNumber: "973-909-1234"
 } as const;
 
+export const incorrectUserInfo = {
+    email: "baddata@test.com",
+    password: "incorrectPass"
+}
+
 export const countryDropDownOptions = ["India","United States","Canada","Australia","Israel","New Zealand","Singapore"];

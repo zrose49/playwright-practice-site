@@ -1,4 +1,4 @@
-export const signupPageLocators = {
+export const signupPageSelectors = {
     password: 'password',
     firstName: 'first_name',
     lastName: 'last_name',

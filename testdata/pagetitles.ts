@@ -1,3 +1,4 @@
 export const pageTitles = {
-    homePageTitle: "Automation Exercise"
+    homePageTitle: "Automation Exercise",
+    loginPageTitle: "Automation Exercise - Signup / Login"
 }
