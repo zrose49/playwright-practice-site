@@ -6,6 +6,7 @@ import { contactUsPageSelectors } from "../Selectors/Contact-Us-page";
 import { contactUsPageText } from "../testdata/page-text";
 import { uploadFiles } from "../testdata/file-data";
 import { fileUpload } from "../helpers/pagehelpers";
+import { userInfo } from "../testdata/userdata";
 
 test('Verify Contact form page elements', {tag:["@test6","@smoke","@desktop"]}, async({page}) => { 
     await page.goto(pageurls.contactUsURL);
@@ -55,6 +56,9 @@ test('File Upload test on Contact Us page', {tag:"@smoke"}, async({page}) => {
 
 });
 
-test('Fill out all fields and submit the contact form', {tag:"@smoke"}, async(page) => {
-
+test('Fill out all fields and submit the contact form', {tag:"@smoke"}, async({page}) => {
+    await page.goto(pageurls.contactUsURL);
+    
+    await page.getByTestId(contactUsPageSelectors.nameTextField).fill(userInfo.username);
+    expect(page.getByTestId(contactUsPageSelectors.nameTextField)).toHaveValue(userInfo.username);
 });
