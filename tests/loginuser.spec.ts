@@ -2,7 +2,7 @@ import { test,expect } from "playwright/test";
 import { incorrectUserInfo, userInfo } from "../testdata/userdata";
 import { registerUser } from "../user-actions/registeruser";
 import { logoutUser } from "../user-actions/logoutuser";
-import { loginPageSelectors } from "../Selectors/Login-page";
+import { loginAccountSelectors } from "../Selectors/Login-page";
 import { homePageSelectors } from "../Selectors/Home-page";
 import { pageurls } from "../testdata/urls";
 import { pageTitles } from "../testdata/pagetitles";
@@ -21,11 +21,11 @@ await logoutUser(page);
 await expect(page).toHaveURL(pageurls.loginPageURL);
 
 const loginAccountTitle = page.locator("#form > div > div > div.col-sm-4.col-sm-offset-1 > div > h2");
-await expect(loginAccountTitle).toHaveText(loginPageSelectors.loginAccountTitleText);
+await expect(loginAccountTitle).toHaveText(loginAccountSelectors.loginAccountTitleText);
 
 const emailInput = page.getByTestId("login-email");
 const getEmailPlaceholderText = await emailInput.getAttribute('placeholder');
-expect(getEmailPlaceholderText).toBe(loginPageSelectors.emailPlaceholderText);
+expect(getEmailPlaceholderText).toBe(loginAccountSelectors.emailPlaceholderText);
 
 const passwordInput = page.getByTestId('login-password');
 const passwordPlaceholderText = await passwordInput.getAttribute('placeholder');
@@ -33,7 +33,7 @@ expect(passwordPlaceholderText).toBe('Password');
 
 await emailInput.fill(email);
 await passwordInput.fill(password);
-await page.getByTestId(loginPageSelectors.loginButton).click();
+await page.getByTestId(loginAccountSelectors.loginButton).click();
 
 //Verify user is on homepage and Logout and Delete Account buttons are now visible
 await expect(page.locator(homePageSelectors.logoutButton)).toBeVisible();
@@ -51,13 +51,13 @@ test('Login with non-existent email and password', {tag:"@test3"}, async ({page}
     await expect(page).toHaveTitle(pageTitles.loginPageTitle);
 
     //Fill in email and password with non-existent email
-    await page.getByTestId(loginPageSelectors.emailLoginField).fill(incorrectUserInfo.email);
-    await page.getByTestId(loginPageSelectors.passwordLoginField).fill(incorrectUserInfo.password);
+    await page.getByTestId(loginAccountSelectors.emailLoginField).fill(incorrectUserInfo.email);
+    await page.getByTestId(loginAccountSelectors.passwordLoginField).fill(incorrectUserInfo.password);
 
     //Click Login button
-    await page.getByTestId(loginPageSelectors.loginButton).click();
-    await expect(page.locator(loginPageSelectors.emailPasswordErrorMessage)).toBeVisible();
-    await expect(page.locator(loginPageSelectors.emailPasswordErrorMessage)).toHaveText(loginPageErrorMessages.incorrectEmailorPasswordMessage);
+    await page.getByTestId(loginAccountSelectors.loginButton).click();
+    await expect(page.locator(loginAccountSelectors.emailPasswordErrorMessage)).toBeVisible();
+    await expect(page.locator(loginAccountSelectors.emailPasswordErrorMessage)).toHaveText(loginPageErrorMessages.incorrectEmailorPasswordMessage);
 
 });
 

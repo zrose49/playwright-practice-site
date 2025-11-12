@@ -1,41 +1,13 @@
 import {test, expect} from '@playwright/test';
+import { countryDropDownOptions, userInfo } from '../testdata/userdata';
+import { pageurls } from '../testdata/urls';
+import { loginPageText, menuOptionsText} from '../testdata/page-text'
+import { registerUser } from '../user-actions/registeruser';
+import { signUpUserSelectors } from '../Selectors/Login-page';
+import { logoutUser } from '../user-actions/logoutuser';
 
-function generateRandomString(length: number) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let result = '';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
 
-const randomString = generateRandomString(10);
-
-const userInfo = {
-    username: `User${randomString}`,
-    password: `Pass${randomString}`,
-    email: `test${randomString}@test.com`,
-    firstName: "Johnny",
-    lastName: "Appleseed Jr.",
-    company: "StoneRock Industries",
-    address1: "1234 Rock Emerald Road",
-    address2: "5678 Platinum Drive",
-    state: "NY",
-    city: "New York",
-    zipcode: "10079",
-    mobileNumber: "973-9090-1234"
-} as const;
-
-const countryDropDownOptions = ["India","United States","Canada","Australia","Israel","New Zealand","Singapore"];
-
-const menuOptionsText = ["Home"," Products","Cart","Logout","Delete Account","Test Cases","API Testing","Video Tutorials","Contact us",`Logged in as ${userInfo.username}`]
-
-const locators = {
-
-} as const
-
-test ('Test Case 1: Register User',{tag:["@test1","@smoke"]}, async ({page}) => {
+test ('Test Case 1: Verify entire Register User flow',{tag:["@test1","@regression"]}, async ({page}) => {
     
     //Land on Homepage and verify expected sections and images exist
     await page.goto('https://www.automationexercise.com/');
@@ -196,21 +168,20 @@ test ('Test Case 1: Register User',{tag:["@test1","@smoke"]}, async ({page}) => 
     const loggedInText = page.locator('#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(10) > a');
     await expect(loggedInText).toContainText(`Logged in as ${userInfo.username}`);
 
-    const deleteAccountButton = page.locator('#header > div > div > div > div.col-sm-8 > div > ul > li:nth-child(5) > a');
-    await expect(deleteAccountButton).toHaveText('Delete Account');
-    await deleteAccountButton.click();
-    expect(page).toHaveURL("https://www.automationexercise.com/delete_account");
+});
 
-    const accountDeletedTitle = page.getByTestId("account-deleted");
-    await expect(accountDeletedTitle).toHaveText("Account Deleted!");
+test('Test Case 5: Register user with existing email, verify error message', {tag:["@test5","@smoke"]}, async({page}) => {
+  //First register a new user to use
+  await registerUser(page);
+  const name = userInfo.firstName + userInfo.lastName;
+  const email = userInfo.email;
+  await logoutUser(page);
 
-    const deleteParagraphText = page.locator('#form > div > div > div > p:nth-child(2)');
-    await expect(deleteParagraphText).toHaveText("Your account has been permanently deleted!");
+  //Try to register with the newly created user/email
+  await page.goto(pageurls.loginPageURL);
+  await page.getByTestId(signUpUserSelectors.nameTextField).fill(name);
+  await page.getByTestId(signUpUserSelectors.emailTextField).fill(email);
+  await page.getByTestId(signUpUserSelectors.signUpbutton).click();
 
-    await continueButton.click();
-    expect(page).toHaveURL("https://www.automationexercise.com/");
-
-    //page.screenshot({path:"screenshots/homepage.png"});
-    await expect(page).toHaveScreenshot("homepage.png",{maxDiffPixelRatio:.2});
-
+  expect(page.locator(signUpUserSelectors.existingEmailErrorMessage)).toHaveText(loginPageText.existingEmailErrorMessage);
 });

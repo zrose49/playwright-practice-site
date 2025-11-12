@@ -41,7 +41,7 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
+      name: 'chromium-desktop',
       use: { ...devices['Desktop Chrome'] },
       
     },
@@ -61,12 +61,12 @@ export default defineConfig({
        name: 'Mobile Chrome',
        use: { ...devices['Pixel 5'] },
      },
-    /*
+    
      {
        name: 'Mobile Safari',
-       use: { ...devices['iPhone 12'] },
+       use: { ...devices['iPhone 12'],viewport: { width: 375, height: 667}  },
      },
-
+     
     /* Test against branded browsers. */
     // {
     //   name: 'Microsoft Edge',
