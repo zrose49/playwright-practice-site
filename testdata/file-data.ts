@@ -3,7 +3,7 @@ export const homepageScreenshots = {
     loggedInIcon: "loggedInIcon.png"
 }
 
-export const uploadFilePaths = {
-    contactUploadFile1: "testdata/upload-files/uploadTest.txt",
-    contactUploadFile2: "testdata/upload-files/uploadTest2.txt"
+export const uploadFiles = {
+    contactUploadFilePath: "testdata/upload-files/",
+    file1Name: "uploadTest.txt"
 }

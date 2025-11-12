@@ -10,5 +10,5 @@ export const contactUsPageSelectors = {
     submitButton: "submit-button",
     feedBackTitle: "//h2[normalize-space(text())='Feedback For Us']",
     feedbackText: "address",
-    chooseFileButton: "upload_file"
+    chooseFileButton: "//input[@type='file']"
 }

@@ -7,7 +7,7 @@ import { homePageSelectors } from "../Selectors/Home-page";
 import { pageurls } from "../testdata/urls";
 import { pageTitles } from "../testdata/pagetitles";
 import { loginPageErrorMessages } from "../testdata/error-messages";
-import { homepageScreenshots } from "../testdata/sceenshot-filenames";
+import { homepageScreenshots } from "../testdata/file-data";
 import { headerText } from "../testdata/page-text";
 
 test('Login with user with correct email and password',{tag:["@test2","@smoke"]}, async({page}) => {

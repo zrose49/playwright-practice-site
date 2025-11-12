@@ -4,6 +4,8 @@ import { pageTitles } from "../testdata/pagetitles";
 import { headerSelectors } from "../Selectors/Header";
 import { contactUsPageSelectors } from "../Selectors/Contact-Us-page";
 import { contactUsPageText } from "../testdata/page-text";
+import { uploadFiles } from "../testdata/file-data";
+import { fileUpload } from "../helpers/pagehelpers";
 
 test('Verify Contact form page elements', {tag:["@test6","@smoke","@desktop"]}, async({page}) => { 
     await page.goto(pageurls.contactUsURL);
@@ -46,6 +48,13 @@ test('Verify Contact form page elements', {tag:["@test6","@smoke","@desktop"]}, 
 test('File Upload test on Contact Us page', {tag:"@smoke"}, async({page}) => {
     await page.goto(pageurls.contactUsURL);
 
-    await page.locator(contactUsPageSelectors.fileUpload).click();
-    
+    const fileUploadButton = page.locator(contactUsPageSelectors.chooseFileButton);
+    await fileUpload(uploadFiles.contactUploadFilePath,uploadFiles.file1Name,fileUploadButton);
+
+    await expect(page).toHaveScreenshot('uploadTest1.png',{maxDiffPixelRatio:.1});
+
+});
+
+test('Fill out all fields and submit the contact form', {tag:"@smoke"}, async(page) => {
+
 });

@@ -1,3 +1,6 @@
+import { Locator, Page } from "playwright";
+import { contactUsPageSelectors } from "../Selectors/Contact-Us-page";
+
 export function rgbToHex(rgb:string) {
   // Extract RGB values from the string (e.g., "rgb(255, 0, 0)")
   const parts = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -8,4 +11,11 @@ export function rgbToHex(rgb:string) {
 
   // Combine them into a full hex code
   return "#" + hex(parts[1]) + hex(parts[2]) + hex(parts[3]);
+}
+
+export async function fileUpload(filepath:string,filename:string, locator:Locator) {
+  const path = require('path');
+  let uploadPath = path.join(filepath,filename);
+  console.log(uploadPath);
+  await locator.setInputFiles(uploadPath);
 }
