@@ -6,5 +6,6 @@ export const pageurls = {
 
 export const apiEndpoints = {
     productlist: "https://automationexercise.com/api/productsList",
-    getAllbrandsList: "https://automationexercise.com/api/brandsList"
+    getAllbrandsList: "https://automationexercise.com/api/brandsList",
+    searchProducts: "https://automationexercise.com/api/searchProduct"
 }
