@@ -1,14 +1,14 @@
 import { test,expect } from "playwright/test";
-import { incorrectUserInfo, userInfo } from "../testdata/userdata";
-import { registerUser } from "../user-actions/registeruser";
-import { logoutUser } from "../user-actions/logoutuser";
-import { loginAccountSelectors } from "../Selectors/Login-page";
-import { homePageSelectors } from "../Selectors/Home-page";
-import { pageurls } from "../testdata/urls";
-import { pageTitles } from "../testdata/pagetitles";
-import { loginPageErrorMessages } from "../testdata/error-messages";
-import { homepageScreenshots } from "../testdata/file-data";
-import { headerText } from "../testdata/page-text";
+import { incorrectUserInfo, userInfo } from "../../testdata/userdata";
+import { registerUser } from "../../user-actions/registeruser";
+import { logoutUser } from "../../user-actions/logoutuser";
+import { loginAccountSelectors } from "../../Selectors/Login-page";
+import { homePageSelectors } from "../../Selectors/Home-page";
+import { pageurls } from "../../testdata/urls";
+import { pageTitles } from "../../testdata/pagetitles";
+import { loginPageErrorMessages } from "../../testdata/error-messages";
+import { homepageScreenshots } from "../../testdata/file-data";
+import { headerText } from "../../testdata/page-text";
 
 test('Login with user with correct email and password',{tag:["@test2","@smoke"]}, async({page}) => {
 //First Register a user and get the username and password

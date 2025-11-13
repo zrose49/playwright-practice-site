@@ -13,7 +13,7 @@ test('Verify Search for "Men" products', async ({request}) => {
 
 });
 
-test.only('Verify Search API without search_product parameter throws error', async ({request}) => {
+test('Verify Search API without search_product parameter throws error', async ({request}) => {
 const response = await request.post(apiEndpoints.searchProducts);
 
 expect(response.status()).toBe(200);

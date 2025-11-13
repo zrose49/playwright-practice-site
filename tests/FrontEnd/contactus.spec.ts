@@ -1,12 +1,12 @@
 import {test, expect} from "@playwright/test";
-import {pageurls}  from "../testdata/urls";
-import { pageTitles } from "../testdata/pagetitles";
-import { headerSelectors } from "../Selectors/Header";
-import { contactUsPageSelectors } from "../Selectors/Contact-Us-page";
-import { contactUsPageAlert, contactUsPageText, contactUsTooltipText } from "../testdata/page-text";
-import { uploadFiles } from "../testdata/file-data";
-import { fileUpload, getTooltipMessage } from "../helpers/pagehelpers";
-import { contactUsInfo, incorrectUserInfo, userInfo } from "../testdata/userdata";
+import {pageurls}  from "../../testdata/urls";
+import { pageTitles } from "../../testdata/pagetitles";
+import { headerSelectors } from "../../Selectors/Header";
+import { contactUsPageSelectors } from "../../Selectors/Contact-Us-page";
+import { contactUsPageAlert, contactUsPageText, contactUsTooltipText } from "../../testdata/page-text";
+import { uploadFiles } from "../../testdata/file-data";
+import { fileUpload, getTooltipMessage } from "../../helpers/pagehelpers";
+import { contactUsInfo, incorrectUserInfo, userInfo } from "../../testdata/userdata";
 
 test.describe('Contact Us tests', {tag:"@ContactUsPage"}, () => {
 

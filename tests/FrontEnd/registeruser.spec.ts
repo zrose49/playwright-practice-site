@@ -1,10 +1,10 @@
 import {test, expect} from '@playwright/test';
-import { countryDropDownOptions, userInfo } from '../testdata/userdata';
-import { pageurls } from '../testdata/urls';
-import { loginPageText, menuOptionsText} from '../testdata/page-text'
-import { registerUser } from '../user-actions/registeruser';
-import { signUpUserSelectors } from '../Selectors/Login-page';
-import { logoutUser } from '../user-actions/logoutuser';
+import { countryDropDownOptions, userInfo } from '../../testdata/userdata';
+import { pageurls } from '../../testdata/urls';
+import { loginPageText, menuOptionsText} from '../../testdata/page-text'
+import { registerUser } from '../../user-actions/registeruser';
+import { signUpUserSelectors } from '../../Selectors/Login-page';
+import { logoutUser } from '../../user-actions/logoutuser';
 
 
 test ('Test Case 1: Verify entire Register User flow',{tag:["@test1","@regression"]}, async ({page}) => {
