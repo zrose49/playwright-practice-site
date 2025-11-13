@@ -10,5 +10,7 @@ export const contactUsPageSelectors = {
     submitButton: "submit-button",
     feedBackTitle: "//h2[normalize-space(text())='Feedback For Us']",
     feedbackText: "address",
-    chooseFileButton: "//input[@type='file']"
+    chooseFileButton: "//input[@type='file']",
+    successMessage: "//div[contains(@class,'status alert')]",
+    homeButton: "//i[@class='fa fa-angle-double-left']"
 }

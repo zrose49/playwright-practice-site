@@ -19,7 +19,15 @@ export const userInfo = {
 
 export const incorrectUserInfo = {
     email: "baddata@test.com",
-    password: "incorrectPass"
+    password: "incorrectPass",
+    emailMissingSymbol: "test.com",
+    incorrectEmailformat: "test@"
 }
 
 export const countryDropDownOptions = ["India","United States","Canada","Australia","Israel","New Zealand","Singapore"];
+
+export const contactUsInfo = {
+    subjectLine: "This is a test header for the subject line",
+    subjectMessage: "This is a test header for the subject line, This is a test header for the subject line, This is a test header for the subject line, This is a test header for the subject line.",
+    
+}

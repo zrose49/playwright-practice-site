@@ -32,7 +32,7 @@ export default defineConfig({
     trace: 'on',
     headless: true,
     screenshot: 'on',
-    video: 'on-first-retry',
+    video: 'on',
     testIdAttribute: 'data-qa',
   },
 
