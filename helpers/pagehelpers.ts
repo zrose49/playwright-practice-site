@@ -19,3 +19,7 @@ export async function fileUpload(filepath:string,filename:string, locator:Locato
   console.log(uploadPath);
   await locator.setInputFiles(uploadPath);
 }
+
+export async function getTooltipMessage(locator:Locator): Promise<string> {
+  return await locator.evaluate((el:HTMLInputElement) => el.validationMessage);
+}

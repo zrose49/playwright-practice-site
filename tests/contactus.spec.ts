@@ -5,8 +5,10 @@ import { headerSelectors } from "../Selectors/Header";
 import { contactUsPageSelectors } from "../Selectors/Contact-Us-page";
 import { contactUsPageAlert, contactUsPageText, contactUsTooltipText } from "../testdata/page-text";
 import { uploadFiles } from "../testdata/file-data";
-import { fileUpload } from "../helpers/pagehelpers";
+import { fileUpload, getTooltipMessage } from "../helpers/pagehelpers";
 import { contactUsInfo, incorrectUserInfo, userInfo } from "../testdata/userdata";
+
+test.describe('Contact Us tests', {tag:"@ContactUsPage"}, () => {
 
 test('Verify Contact form page elements', {tag:["@test6","@smoke","@desktop"]}, async({page}) => { 
     await page.goto(pageurls.contactUsURL);
@@ -76,12 +78,12 @@ test('Fill out all fields and submit the contact form', {tag:"@smoke"}, async({p
 
     //handle alert before the submit button is clicked with this listener
     page.on('dialog', async (dialog) => {
-    // Assert the type of dialog
-    expect(dialog.type()).toBe(contactUsPageAlert.dialogType);
-    // Assert the message of the alert
-    expect(dialog.message()).toBe(contactUsPageAlert.dialogText);
-    // Accept the alert to dismiss it
-    await dialog.accept();
+        // Assert the type of dialog
+        expect(dialog.type()).toBe(contactUsPageAlert.dialogType);
+        // Assert the message of the alert
+        expect(dialog.message()).toBe(contactUsPageAlert.dialogText);
+        // Accept the alert to dismiss it
+        await dialog.accept();
   });
 
     await page.getByTestId(contactUsPageSelectors.submitButton).click();
@@ -96,29 +98,36 @@ test('Fill out all fields and submit the contact form', {tag:"@smoke"}, async({p
 
 });
 
-test.only('Verify tooltip messages for required email field', async({page}) => {
+test('Verify tooltip messages for required email field', async({page}) => {
     await page.goto(pageurls.contactUsURL);
 
     await expect(page.getByTestId(contactUsPageSelectors.emailTextField)).toHaveAttribute('required','required');
     
+    const emailTextField = page.getByTestId(contactUsPageSelectors.emailTextField);
+
     // Trigger tooltip message for required email field
     await page.getByTestId(contactUsPageSelectors.submitButton).click();
 
     // Get the browser's native validation message
-    let message = await page.getByTestId(contactUsPageSelectors.emailTextField).evaluate((el:HTMLInputElement) => el.validationMessage);
+    let message = await getTooltipMessage(emailTextField);
     console.log(message);
     expect(message).toBe(contactUsTooltipText.emailFieldRequiredText);
 
+    
     //Verify tooltip message with missing @ symbol in email
-    await page.getByTestId(contactUsPageSelectors.emailTextField).fill(incorrectUserInfo.emailMissingSymbol);
+    await emailTextField.fill(incorrectUserInfo.emailMissingSymbol);
     await page.getByTestId(contactUsPageSelectors.submitButton).click();
-    message = await page.getByTestId(contactUsPageSelectors.emailTextField).evaluate((el:HTMLInputElement) => el.validationMessage);
+    message = await getTooltipMessage(emailTextField);
+    console.log(message);
     expect(message).toBe(contactUsTooltipText.symbolRequiredText);
 
     //Veriify tooltip message with incorrect email format
-    await page.getByTestId(contactUsPageSelectors.emailTextField).fill(incorrectUserInfo.incorrectEmailformat);
+    await emailTextField.fill(incorrectUserInfo.incorrectEmailformat);
     await page.getByTestId(contactUsPageSelectors.submitButton).click();
-    message = await page.getByTestId(contactUsPageSelectors.emailTextField).evaluate((el:HTMLInputElement) => el.validationMessage);
+    message = await getTooltipMessage(emailTextField);
+    console.log(message);
     expect(message).toBe(contactUsTooltipText.formatIncorrectText);
+
+});
 
 });
