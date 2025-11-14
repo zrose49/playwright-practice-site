@@ -5,3 +5,9 @@ export const loginPageErrorMessages = {
 export const getAllProductsListAPIErrors = {
     postMethodErrorMessage: "This request method is not supported."
 }
+
+export const verifyLoginAPIErrors = {
+    missingParamsErrorMessage: "Bad request, search_product parameter is missing in POST request.",
+    methodNotAllowedErrorMessage: "This request method is not supported.",
+    userNotFoundErrorMessage: "User not found!"
+}

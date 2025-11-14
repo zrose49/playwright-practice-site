@@ -1,4 +1,4 @@
-import { Page,webkit } from "playwright";
+import { Page } from "playwright";
 import { userInfo, countryDropDownOptions } from "../testdata/userdata";
 import { signupPageSelectors } from "../Selectors/Signup-page";
 import { pageurls } from "../testdata/urls";
