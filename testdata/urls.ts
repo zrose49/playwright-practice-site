@@ -7,5 +7,6 @@ export const pageurls = {
 export const apiEndpoints = {
     productlist: "https://automationexercise.com/api/productsList",
     getAllbrandsList: "https://automationexercise.com/api/brandsList",
-    searchProducts: "https://automationexercise.com/api/searchProduct"
+    searchProducts: "https://automationexercise.com/api/searchProduct",
+    getUserDetail: "https://automationexercise.com/api/getUserDetailByEmail"
 }

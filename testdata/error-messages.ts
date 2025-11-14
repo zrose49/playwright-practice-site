@@ -11,3 +11,7 @@ export const verifyLoginAPIErrors = {
     methodNotAllowedErrorMessage: "This request method is not supported.",
     userNotFoundErrorMessage: "User not found!"
 }
+
+export const getUserAccountAPIErrors = {
+    accountNotFoundMessage: "Account not found with this email, try another email!"
+}
