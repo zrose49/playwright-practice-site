@@ -1,7 +1,8 @@
 export const pageurls = {
     homePageURL: "https://www.automationexercise.com",
     loginPageURL: "https://www.automationexercise.com/login",
-    contactUsURL: "https://www.automationexercise.com/contact_us"
+    contactUsURL: "https://www.automationexercise.com/contact_us",
+    productsURL: "https://www.automationexercise.com/products"
 }
 
 export const apiEndpoints = {
