@@ -10,8 +10,21 @@ import { loginPageErrorMessages } from "../../testdata/error-messages";
 import { homepageScreenshots } from "../../testdata/file-data";
 import { headerText } from "../../testdata/page-text";
 
+test.describe('Login Tests', {tag:["@smoke","@LoginTests"]}, async() => {
+
+    test.beforeEach('Block google ads', async({context}) => {
+        await context.route('**/*', route => {
+     const url = route.request().url();
+    if (url.startsWith('https://googleads.') || url.includes('.doubleclick.net/')) {
+      route.abort();
+    } else {
+      route.continue();
+    }
+  });
+    });
+
+
 test('Login with user with correct email and password',{tag:["@test2","@smoke"]}, async({page}) => {
-//First Register a user and get the username and password
 await registerUser(page);
 const email = userInfo.email;
 const password = userInfo.password;
@@ -81,4 +94,6 @@ test('Verify user logout flow', {tag:"@test4"}, async({page}) => {
 
     await page.locator("//a[normalize-space(text())='Logout']").click();
     await expect(page).toHaveTitle(pageTitles.loginPageTitle);
+});
+
 });

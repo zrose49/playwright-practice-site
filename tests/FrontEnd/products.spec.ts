@@ -1,9 +1,10 @@
-import {test,expect} from "@playwright/test";
+import {test,expect, Locator} from "@playwright/test";
 import {pageurls} from "../../testdata/urls";
 import {pageTitles} from "../../testdata/pagetitles"
 import { homePageSelectors } from "../../Selectors/Home-page";
 import { productsPageSelectors } from "../../Selectors/Products-page";
 import { productData } from "../../testdata/product-data";
+import { countProducts, verifyProductText, verifyProductVisibility } from "../../helpers/pagehelpers";
 
 test('Verify products page shows correct elements', {tag:["@smoke","@TestCase8"]}, async({page}) => {
     await page.goto(pageurls.homePageURL);
@@ -11,15 +12,16 @@ test('Verify products page shows correct elements', {tag:["@smoke","@TestCase8"]
     await expect(page).toHaveURL(pageurls.productsURL);
     await expect(page).toHaveTitle(pageTitles.productsPageTitle);
 
-    let featuredItems = await page.locator(productsPageSelectors.featuredItemDiv).all();
-    let count = 0;
+    const featuredItems:Locator[] = await page.locator(productsPageSelectors.featuredItemDiv).all();
+    const count = await countProducts(featuredItems);
     for(let item of featuredItems){
         await expect(item).toBeVisible();
-        await expect(item).toBeInViewport();
+        //await expect(item).toBeInViewport();
         console.log(await item.allInnerTexts());
-        count++;
     }
     
-    expect(count).toBeGreaterThanOrEqual(productData.productCount);
+    expect(count).toBe(productData.productCount);
+    await verifyProductVisibility(featuredItems);
+    await verifyProductText(featuredItems);
 
 });

@@ -1,5 +1,6 @@
-import { Locator, Page } from "playwright";
-import { contactUsPageSelectors } from "../Selectors/Contact-Us-page";
+import { Locator } from "playwright";
+import { expect } from "playwright/test";
+import { productPageText } from "../testdata/page-text";
 
 export function rgbToHex(rgb:string) {
   // Extract RGB values from the string (e.g., "rgb(255, 0, 0)")
@@ -22,4 +23,32 @@ export async function fileUpload(filepath:string,filename:string, locator:Locato
 
 export async function getTooltipMessage(locator:Locator): Promise<string> {
   return await locator.evaluate((el:HTMLInputElement) => el.validationMessage);
+}
+
+export async function countProducts(products:Locator[]): Promise<number> {
+  let count = 0;
+  for(const product of products) {
+    if(await product.innerText()) {
+      count++;
+    }
+  }
+  return count;
+}
+
+export async function verifyProductVisibility(products:Locator[]): Promise<void> {
+  for(const product of products) {
+    if(await product.innerText()) {
+      await expect(product).toBeVisible();
+    }
+  }
+}
+
+export async function verifyProductText(products:Locator[]): Promise<void> {
+  for(const product of products) {
+    if(await product.innerText()) {
+      await expect(product).toContainText(productPageText.currencyText);
+      await expect(product).toContainText(productPageText.addToCartText);
+      await expect(product).toContainText(productPageText.viewProductText);
+    }
+  }
 }

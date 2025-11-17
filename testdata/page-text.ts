@@ -35,3 +35,9 @@ export const contactUsTooltipText = {
     formatIncorrectText: `Please enter a part following '@'. '${incorrectUserInfo.incorrectEmailformat}' is incomplete.`
 
 }
+
+export const productPageText = {
+    currencyText: "Rs.",
+    addToCartText: "Add to cart",
+    viewProductText: "View Product"
+}
